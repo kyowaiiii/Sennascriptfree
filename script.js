@@ -13,7 +13,7 @@ function downloadScript(){
 playClick()
 
 window.open(
-"https://example.com",
+"https://sub4unlock.co/2usaL",
 "_blank"
 )
 
