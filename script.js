@@ -1,20 +1,10 @@
 function playClick(){
+
 let sound=document.getElementById("clickSound")
+
 sound.currentTime=0
+
 sound.play()
-}
-
-function toggleCategory(){
-
-playClick()
-
-let list=document.getElementById("category-list")
-
-if(list.style.display==="block"){
-list.style.display="none"
-}else{
-list.style.display="block"
-}
 
 }
 
@@ -29,49 +19,72 @@ window.open(
 
 }
 
+/* SEARCH */
+
 function searchScript(){
+
+playClick()
 
 let input=document
 .getElementById("search")
-.value.toLowerCase()
+.value
+.toLowerCase()
 
 let cards=document
 .querySelectorAll(".script-card")
 
+let bar=document
+.getElementById("searchLoading")
+
+bar.style.width="100%"
+
+setTimeout(()=>{
+
 cards.forEach(card=>{
 
-let text=card
-.innerText
-.toLowerCase()
+let text=card.innerText.toLowerCase()
 
 card.style.display=
 text.includes(input)
-? "block"
+? "flex"
 : "none"
 
 })
 
+bar.style.width="0%"
+
+},400)
+
 }
 
-const text="Initializing Senna Script..."
+/* TERMINAL COMMAND */
+
+const lines=[
+
+"root@senna:~$ initializing system...",
+"root@senna:~$ loading modules...",
+"root@senna:~$ connecting database...",
+"root@senna:~$ verifying scripts...",
+"root@senna:~$ system ready"
+
+]
+
+let terminal=document.getElementById("terminalText")
 
 let i=0
 
-function terminal(){
+function runTerminal(){
 
-let term=document
-.querySelector(".term-text")
+if(i<lines.length){
 
-if(i<text.length){
-
-term.innerHTML+=text.charAt(i)
+terminal.innerHTML+=lines[i]+"<br>"
 
 i++
 
-setTimeout(terminal,50)
+setTimeout(runTerminal,800)
 
 }
 
 }
 
-terminal()
+runTerminal()

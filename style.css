@@ -38,16 +38,6 @@ transition:.3s;
 color:#00aaff;
 }
 
-#search{
-width:80%;
-padding:10px;
-border-radius:10px;
-border:none;
-background:#1a1a1a;
-color:white;
-margin-top:15px;
-}
-
 .script-title{
 margin-top:20px;
 color:#00aaff;
@@ -56,79 +46,158 @@ animation:blink 1s infinite;
 
 @keyframes blink{
 0%{opacity:1}
-50%{opacity:.3}
+50%{opacity:.4}
 100%{opacity:1}
 }
 
+/* SEARCH */
+
+.search-box{
+width:80%;
+margin:15px auto;
+}
+
+#search{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:none;
+background:#1a1a1a;
+color:white;
+}
+
+#searchLoading{
+height:3px;
+background:#00aaff;
+width:0%;
+transition:.4s;
+margin-top:5px;
+}
+
+/* TERMINAL */
+
 #terminal{
 background:black;
+padding:12px;
+width:85%;
 margin:15px auto;
-padding:10px;
-width:80%;
 border-radius:10px;
 font-family:monospace;
 color:#0f0;
+text-align:left;
 }
 
+/* SCRIPT CARD */
+
 .script-card{
+
+display:flex;
+gap:15px;
+
 background:#1a1a1a;
+
 margin:20px;
+
 padding:15px;
-border-radius:10px;
-animation:drop .6s;
+
+border-radius:12px;
+
 position:relative;
+
+animation:drop .5s;
+
 }
 
 @keyframes drop{
+
 from{
 opacity:0;
-transform:translateY(-30px)
+transform:translateY(-20px)
 }
+
 to{
-opacity:1;
+opacity:1
 }
+
 }
 
 .sc-img{
-width:100%;
+
+width:120px;
+height:120px;
+
 border-radius:10px;
+
+object-fit:cover;
+
+}
+
+.script-info{
+text-align:left;
+flex:1;
+}
+
+.desc-script{
+opacity:.8;
+font-size:14px;
+}
+
+/* KATEGORI */
+
+.kategori{
+
+margin-top:6px;
+
+}
+
+.kategori span{
+
+background:#222;
+
+padding:4px 8px;
+
+border-radius:6px;
+
+font-size:12px;
+
+margin-right:5px;
+
+}
+
+/* DOWNLOAD */
+
+.download{
+
+margin-top:10px;
+
+background:#00aaff;
+
+border:none;
+
+padding:8px 18px;
+
+border-radius:8px;
+
+color:white;
+
+cursor:pointer;
+
 }
 
 .tag{
+
 position:absolute;
+
 top:10px;
+
 left:10px;
+
 background:red;
-padding:4px 8px;
-font-size:12px;
-border-radius:5px;
-}
 
-.download{
-background:#00aaff;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-color:white;
-margin-top:10px;
-cursor:pointer;
-}
+font-size:11px;
 
-.kategori button{
-background:#222;
-color:white;
-border:none;
-padding:6px 12px;
-border-radius:8px;
-margin-top:8px;
-}
+padding:3px 7px;
 
-#category-list{
-display:none;
-animation:fade .4s;
-}
+border-radius:6px;
 
-@keyframes fade{
-from{opacity:0}
-to{opacity:1}
 }
