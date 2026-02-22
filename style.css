@@ -1,0 +1,167 @@
+body{
+background:#0b1220;
+color:white;
+font-family:Arial;
+margin:0;
+text-align:center;
+}
+
+.navbar{
+background:#111827;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+}
+
+.profile img{
+width:120px;
+height:120px;
+border-radius:50%;
+margin-top:20px;
+box-shadow:0 0 25px #3b82f6;
+}
+
+.free-text{
+color:#3b82f6;
+animation:glow 1s infinite alternate;
+}
+
+@keyframes glow{
+from{opacity:0.5}
+to{opacity:1}
+}
+
+.welcome-text{
+width:80%;
+margin:auto;
+opacity:0.8;
+}
+
+.social{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.social img{
+width:35px;
+transition:0.3s;
+}
+
+.social img:hover{
+transform:scale(1.2);
+}
+
+.terminal{
+width:80%;
+margin:auto;
+background:black;
+padding:15px;
+border-radius:10px;
+text-align:left;
+color:#00ff9c;
+font-family:monospace;
+margin-top:30px;
+}
+
+.search-box{
+margin:30px;
+}
+
+.search-box input{
+width:80%;
+padding:12px;
+border-radius:10px;
+border:none;
+outline:none;
+}
+
+.loader{
+display:none;
+margin-top:10px;
+color:#3b82f6;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0.3}
+100%{opacity:1}
+}
+
+.container{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:20px;
+padding-bottom:50px;
+}
+
+.card{
+background:#111827;
+padding:20px;
+border-radius:12px;
+width:80%;
+max-width:400px;
+}
+
+.script-title{
+color:#3b82f6;
+animation:blink 1s infinite;
+}
+
+.script-body{
+display:flex;
+gap:15px;
+align-items:center;
+}
+
+.img-box{
+position:relative;
+}
+
+.script-img{
+width:90px;
+border-radius:10px;
+}
+
+.tag-new{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:white;
+font-size:12px;
+padding:3px 6px;
+border-radius:5px;
+}
+
+.script-info{
+text-align:left;
+}
+
+.category span{
+background:#1f2937;
+padding:4px 8px;
+border-radius:6px;
+margin-right:5px;
+font-size:12px;
+}
+
+.download-btn{
+background:transparent;
+border:2px solid #3b82f6;
+color:#3b82f6;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+transition:0.3s;
+}
+
+.download-btn:hover{
+background:#3b82f6;
+color:white;
+box-shadow:0 0 10px #3b82f6;
+}
