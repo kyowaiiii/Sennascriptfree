@@ -1,109 +1,112 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senna Ayase</title>
+
+<title>Senna Script</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
-<div class="navbar">
-SENNA AYASE
-</div>
-
-<div class="profile">
-
-<img src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
-
-<h2 class="free-text">FREE SCRIPT BOT</h2>
-
-<p class="welcome-text">
-Welcome To Senna Ayase Website.
-Tempat Download Script Bot Gratis Yang Bisa
-Kalian Gunakan Dan Pelajari.
-Jangan Lupa Support Dengan Subscribe Channel Senna.
-</p>
-
-</div>
-
-<div class="social">
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
-</a>
-
-</div>
-
-<div class="terminal">
-<pre id="terminalText"></pre>
-</div>
-
-<div class="search-box">
-
-<input type="text" id="search" placeholder="🔍 Search Script...">
-
-<div class="loader" id="loader">
-Searching database...
-</div>
-
-</div>
+<audio id="clickSound"
+src="https://d.uguu.se/BUnKBdQu.mp3"></audio>
 
 <div class="container">
 
-<div class="card">
+<img class="pp"
+src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
+
+<h1 class="title">Free Script Bot</h1>
+
+<p class="desc">
+Welcome to Senna Script Collection
+</p>
+
+<div class="social">
+
+<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r"
+onclick="playClick()" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<a href="https://www.youtube.com/@sennavx7"
+onclick="playClick()" target="_blank">
+<i class="fa-brands fa-youtube"></i>
+</a>
+
+<a href="https://t.me/senlith"
+onclick="playClick()" target="_blank">
+<i class="fa-brands fa-telegram"></i>
+</a>
+
+<a href="https://qu.ax/Q6fpS"
+onclick="playClick()" target="_blank">
+<i class="fa-solid fa-hand-holding-dollar"></i>
+</a>
+
+</div>
+
+<input
+id="search"
+type="text"
+placeholder="Search Script..."
+onkeyup="searchScript()">
 
 <h2 class="script-title">
 SCRIPT FREE BY SENNA
 </h2>
 
-<div class="script-body">
-
-<div class="img-box">
-
-<img class="script-img" src="https://picsum.photos/200">
-
-<span class="tag-new">
-NEW
-</span>
-
+<div id="terminal">
+<span class="term-text"></span>
 </div>
 
-<div class="script-info">
+<!-- SCRIPT CARD -->
 
-<h3>
-Senna MD Bot
-</h3>
+<div class="script-card">
+
+<img class="sc-img"
+src="https://files.catbox.moe/5y7g7h.jpg">
+
+<span class="tag">NEW</span>
+
+<h3>Bot WhatsApp Gacha</h3>
 
 <p>
-Script bot WhatsApp dengan fitur lengkap
-dan mudah digunakan.
+Bot WhatsApp dengan fitur coin,
+gacha dan top coin
 </p>
 
-<div class="category">
+<div class="kategori">
 
-<span>Javascript</span>
-<span>Node.js</span>
-<span>Bot WhatsApp</span>
-
-</div>
-
-<button class="download-btn">
-⬇ Download
+<button onclick="toggleCategory()">
+Kategori
 </button>
 
+<div id="category-list">
+
+<p>Javascript</p>
+<p>Node.js</p>
+<p>Bot WhatsApp</p>
+
 </div>
 
 </div>
+
+<button
+class="download"
+onclick="downloadScript()">
+
+Download
+
+</button>
 
 </div>
 
