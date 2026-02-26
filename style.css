@@ -1,40 +1,93 @@
 body{
-background:#0f0f0f;
-color:white;
-font-family:Arial;
-margin:0;
-padding:0;
+  margin:0;
+  font-family:Arial;
+  background:#0f0f0f;
+  color:white;
 }
-.container{max-width:900px;margin:auto;padding:20px;}
-.pp{width:90px;border-radius:50%;display:block;margin:auto;}
-h1{text-align:center;margin:10px 0;}
-.desc{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px;}
-.social{text-align:center;margin-bottom:15px;}
-.social a{color:white;font-size:20px;margin:0 10px;}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+.pp{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  display:block;
+  margin:auto;
+}
+.title{text-align:center; font-size:26px; background: linear-gradient(90deg,#4da6ff,#00ffd0); -webkit-background-clip:text; color:transparent; margin:10px 0;}
+.desc{text-align:center;color:#aaa;margin-bottom:15px;}
 
-.search-wrapper{position:relative;width:100%;margin-bottom:10px;}
-#search{width:100%;padding:10px;border-radius:8px;border:none;}
+.social{text-align:center;margin-bottom:20px;}
+.social a{
+  color:white;
+  font-size:22px;
+  margin:0 10px;
+  transition:0.3s;
+}
+.social a:hover{transform:scale(1.2); color:#4da6ff;}
+
+.search-wrapper{position:relative;margin-bottom:20px;}
+#search{width:100%;padding:10px;border-radius:10px;border:none;font-size:14px;}
 #searchLoading{position:absolute;top:12px;right:12px;width:16px;height:16px;border:3px solid #ccc;border-top:3px solid #4da6ff;border-radius:50%;animation:spin 1s linear infinite;display:none;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-#categoryFilter{width:100%;padding:8px;border-radius:6px;border:none;margin-bottom:20px;background:#222;color:white;}
+#categoryFilter{width:100%;padding:8px;margin-bottom:20px;border-radius:6px;background:#222;color:white;border:none;font-size:14px;}
 
-/* SCRIPT CARD */
-.card{display:flex;gap:12px;background:#1a1a1a;padding:10px;border-radius:10px;align-items:flex-start;position:relative;opacity:0;transform:translateY(10px);transition:0.4s;}
+/* Grid Script Cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:15px;
+}
+.card{
+  background:#1a1a1a;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  opacity:0;
+  transform:translateY(15px);
+  transition:0.4s;
+}
 .card.show{opacity:1;transform:translateY(0);}
-.card img{width:70px;height:70px;object-fit:cover;border-radius:8px;}
-.script-info{flex:1;}
-.script-name{font-size:14px;font-weight:bold;}
-.script-desc{font-size:12px;color:#aaa;margin-top:3px;}
-.script-category{font-size:11px;color:#4da6ff;margin-top:4px;}
-.download{display:inline-block;padding:5px 10px;border-radius:6px;font-size:12px;text-decoration:none;color:white;margin-top:6px;background: linear-gradient(45deg,#4da6ff,#00ffd0);transition:0.3s;}
-.download:hover{transform:scale(1.05);}
+.card img{
+  width:100%;
+  height:0;
+  padding-top:100%;
+  object-fit:cover;
+}
+.script-info{padding:10px;}
+.script-name{font-weight:bold;font-size:14px;margin-bottom:5px;}
+.script-desc{font-size:12px;color:#aaa;margin-bottom:8px;}
+.script-category .pill{
+  display:inline-block;
+  background:#333;
+  color:#4da6ff;
+  padding:2px 6px;
+  border-radius:6px;
+  font-size:10px;
+  margin-right:4px;
+}
+.download{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:8px;
+  font-size:12px;
+  text-decoration:none;
+  color:white;
+  background: linear-gradient(45deg,#4da6ff,#00ffd0);
+  transition:0.3s;
+}
+.download:hover{transform:scale(1.05); box-shadow:0 0 6px #00ffd0;}
 
-/* NEW TAG */
-.tag-new{position:absolute;top:6px;right:6px;background:#ff0044;padding:2px 6px;font-size:10px;font-weight:bold;border-radius:4px;}
-
-/* TERMINAL */
-#terminal{background:#111;border-radius:10px;padding:10px;margin-top:20px;display:flex;flex-direction:column;height:300px;overflow:hidden;}
-#terminal-output{flex:1;overflow-y:auto;font-family:monospace;font-size:13px;color:#0f0;margin-bottom:5px;}
-#terminal-input{border:none;border-radius:6px;padding:8px;background:#222;color:white;font-family:monospace;}
-#terminal-input:focus{outline:none;}
+.tag-new{
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:linear-gradient(45deg,#ff0044,#ff77aa);
+  padding:3px 6px;
+  font-size:10px;
+  font-weight:bold;
+  border-radius:6px;
+}
