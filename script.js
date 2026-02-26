@@ -1,90 +1,62 @@
-function playClick(){
+const githubAPI="https://raw.githubusercontent.com/kyowaiiii/database.json/refs/heads/main/database.json"
 
-let sound=document.getElementById("clickSound")
+async function loadScripts(){
 
-sound.currentTime=0
+const res=await fetch(githubAPI)
+const data=await res.json()
 
-sound.play()
+data.sort((a,b)=>new Date(b.date)-new Date(a.date))
 
-}
+const container=document.getElementById("script-list")
+container.innerHTML=""
 
-function downloadScript(){
+data.forEach((sc,index)=>{
 
-playClick()
+let tag=index===0?`<span class="new-tag">NEW</span>`:""
 
-window.open(
-"https://sub4unlock.co/2usaL",
-"_blank"
-)
+const card=document.createElement("div")
 
-}
+card.className="card"
 
-/* SEARCH */
+card.innerHTML=`
 
-function searchScript(){
+<div class="img-box">
+<img src="${sc.image}">
+${tag}
+</div>
 
-playClick()
+<h3>${sc.name}</h3>
 
-let input=document
-.getElementById("search")
-.value
-.toLowerCase()
+<p>${sc.desc}</p>
 
-let cards=document
-.querySelectorAll(".script-card")
+<p>${sc.category}</p>
 
-let bar=document
-.getElementById("searchLoading")
+<a class="download" href="${sc.download}" target="_blank">
+Download
+</a>
 
-bar.style.width="100%"
+`
 
-setTimeout(()=>{
-
-cards.forEach(card=>{
-
-let text=card.innerText.toLowerCase()
-
-card.style.display=
-text.includes(input)
-? "flex"
-: "none"
+container.appendChild(card)
 
 })
 
-bar.style.width="0%"
-
-},400)
-
 }
 
-/* TERMINAL COMMAND */
+loadScripts()
 
-const lines=[
+// SEARCH
 
-"root@senna:~$ initializing system...",
-"root@senna:~$ loading modules...",
-"root@senna:~$ connecting database...",
-"root@senna:~$ verifying scripts...",
-"root@senna:~$ system ready"
+document.getElementById("search").addEventListener("input",function(){
 
-]
+let value=this.value.toLowerCase()
 
-let terminal=document.getElementById("terminalText")
+document.querySelectorAll(".card").forEach(card=>{
 
-let i=0
+card.style.display=
+card.innerText.toLowerCase().includes(value)
+?"block":"none"
 
-function runTerminal(){
+})
 
-if(i<lines.length){
-
-terminal.innerHTML+=lines[i]+"<br>"
-
-i++
-
-setTimeout(runTerminal,800)
-
-}
-
-}
-
-runTerminal()
+})

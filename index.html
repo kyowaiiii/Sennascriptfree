@@ -16,112 +16,71 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <body>
 
-<audio id="clickSound"
-src="https://d.uguu.se/BUnKBdQu.mp3"></audio>
-
 <div class="container">
 
 <img class="pp"
-src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
+src="https://files.catbox.moe/4v9p6y.jpg">
 
-<h1 class="title">
-Senna Ayase
-</h1>
+<h1 class="title">Senna Script</h1>
 
 <p class="desc">
-Senna Script adalah website yang menyediakan berbagai script bot gratis yang bisa digunakan untuk belajar maupun dikembangkan kembali. Di sini kamu bisa menemukan berbagai jenis script seperti Bot WhatsApp, tools JavaScript, dan project Node.js lainnya. Semua script dibagikan secara gratis untuk membantu developer pemula maupun yang sudah berpengalaman dalam membuat bot atau aplikasi otomatisasi. Gunakan fitur search untuk menemukan script yang kamu butuhkan dengan lebih cepat.
+
+Senna Script adalah website yang menyediakan berbagai script bot gratis yang bisa digunakan untuk belajar maupun dikembangkan kembali. Di sini kamu bisa menemukan berbagai jenis script seperti Bot WhatsApp, tools JavaScript, dan project Node.js lainnya.
+
 </p>
 
 <!-- SOCIAL -->
 
 <div class="social">
 
-<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r"
-onclick="playClick()" target="_blank">
+<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank">
 <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<a href="https://www.youtube.com/@sennavx7"
-onclick="playClick()" target="_blank">
+<a href="https://www.youtube.com/@sennavx7" target="_blank">
 <i class="fa-brands fa-youtube"></i>
 </a>
 
-<a href="https://t.me/senlith"
-onclick="playClick()" target="_blank">
+<a href="https://t.me/senlith" target="_blank">
 <i class="fa-brands fa-telegram"></i>
 </a>
 
-<a href="https://qu.ax/Q6fpS"
-onclick="playClick()" target="_blank">
+<a href="https://qu.ax/Q6fpS" target="_blank">
 <i class="fa-solid fa-hand-holding-dollar"></i>
 </a>
 
 </div>
 
-<h2 class="script-title">
-𝗟𝗶𝘀𝘁 𝗦𝗰𝗿𝗶𝗽𝘁 
-</h2>
+<h2 class="script-title">List Script</h2>
 
 <!-- SEARCH -->
-
-<div class="search-box">
 
 <input
 id="search"
 type="text"
-placeholder="Search Script..."
-onkeyup="searchScript()">
+placeholder="Search Script...">
 
-<div id="searchLoading"></div>
+<!-- TERMINAL AI -->
 
-</div>
+<div class="terminal">
 
-<!-- TERMINAL -->
+<div id="terminal-output"></div>
 
-<div id="terminal">
-<div id="terminalText"></div>
-</div>
-
-<!-- SCRIPT -->
-
-<div class="script-card">
-
-<img class="sc-img"
-src="https://img2.pixhost.to/images/5949/698183218_marceleven.jpg">
-
-<div class="script-info">
-
-<h3>Script Zero Two</h3>
-
-<p class="desc-script">
-𝘉𝘰𝘵 𝘞𝘩𝘢𝘵𝘴𝘈𝘱𝘱 𝘴𝘦𝘳𝘶: 𝘢𝘶𝘵𝘰-𝘳𝘦𝘴𝘱𝘰𝘯, 𝘨𝘢𝘮𝘦, 𝘥𝘰𝘸𝘯𝘭𝘰𝘢𝘥𝘦𝘳, 𝘥𝘢𝘯 𝘢𝘯𝘰𝘯𝘺𝘮𝘰𝘶𝘴 𝘤𝘩𝘢𝘵. 𝘔𝘶𝘥𝘢𝘩 𝘥𝘪𝘫𝘢𝘭𝘢𝘯𝘬𝘢𝘯 𝘥𝘪 𝘛𝘦𝘳𝘮𝘶𝘹 𝘢𝘵𝘢𝘶 𝘝𝘗𝘚.
-</p>
-
-<div class="kategori">
-
-<span>Javascript</span>
-<span>Node.js</span>
-<span>BotWhatsApp</span>
+<input
+id="ai-input"
+placeholder="Ask AI..."
+onkeypress="if(event.key==='Enter')sendAI()">
 
 </div>
 
-<button
-class="download"
-onclick="downloadScript()">
+<!-- SCRIPT LIST -->
 
-Download
-
-</button>
-
-</div>
-
-<span class="tag">NEW</span>
-
-</div>
+<div id="script-list"></div>
 
 </div>
 
 <script src="script.js"></script>
+<script src="ai.js"></script>
 
 </body>
 </html>
