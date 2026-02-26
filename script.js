@@ -10,7 +10,7 @@ async function loadScripts(){
         const data = await res.json();
         scripts = data;
 
-        // SORT NEW berdasarkan tanggal 7 hari terakhir
+        // Tag NEW otomatis dari tanggal (7 hari terakhir)
         const today = new Date();
         scripts.forEach(sc=>{
             sc.isNew = false;
@@ -20,9 +20,7 @@ async function loadScripts(){
                 if(diffDays <= 7) sc.isNew = true;
             }
         });
-        // Taruh NEW paling atas
         scripts.sort((a,b)=>b.isNew - a.isNew);
-
         renderScripts(scripts);
         populateCategory();
     }catch(e){
@@ -48,7 +46,7 @@ function renderScripts(data){
             </div>
         `;
         container.appendChild(card);
-        setTimeout(()=>card.classList.add("show"),50); // fade in animation
+        setTimeout(()=>card.classList.add("show"),50);
     });
 }
 
@@ -82,7 +80,7 @@ document.getElementById("categoryFilter").addEventListener("change", function(){
     renderScripts(filtered);
 });
 
-// TERMINAL AI FIXED
+// TERMINAL AI (client-side, bisa dicoba)
 const terminalOutput = document.getElementById("terminal-output");
 const terminalInput = document.getElementById("terminal-input");
 
@@ -103,13 +101,15 @@ function appendTerminal(text){
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
-// PROXY FETCH ke serverless untuk Gemini (Vercel)
 async function queryAI(prompt){
     appendTerminal("AI: ...");
     try{
-        const res = await fetch("/api/gemini",{
+        const res = await fetch(`https://api.gemini.com/v1/ask`, {
             method:"POST",
-            headers:{"Content-Type":"application/json"},
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+GEMINI_API_KEY
+            },
             body: JSON.stringify({prompt})
         });
         const data = await res.json();
@@ -121,7 +121,6 @@ async function queryAI(prompt){
     }
 }
 
-// Typing animation
 function typeText(text){
     return new Promise(resolve=>{
         const p = terminalOutput.lastChild;
