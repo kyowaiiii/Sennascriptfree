@@ -37,7 +37,6 @@ function renderScripts(data){
       </div>
     `;
     container.appendChild(card);
-    setTimeout(()=>card.classList.add("show"),50);
   });
 }
 
@@ -69,4 +68,22 @@ document.getElementById("categoryFilter").addEventListener("change",function(){
   renderScripts(filtered);
 });
 
-loadScripts();
+// Terminal AI Navbar
+const aiInput=document.getElementById("aiInput");
+const aiSend=document.getElementById("aiSend");
+const aiOutput=document.getElementById("aiOutput");
+
+aiSend.addEventListener("click",async()=>{
+  const query=aiInput.value;
+  if(!query) return;
+  aiOutput.style.display="block";
+  aiOutput.innerHTML+='<div class="user">> '+query+'</div>';
+  
+  // Example fetch ke Gemini API
+  const response=await fetch("https://api.gemini.example/ask?key=YOUR_API_KEY&q="+encodeURIComponent(query));
+  const data=await response.json();
+  
+  aiOutput.innerHTML+='<div class="ai">AI: '+data.answer+'</div>';
+  aiInput.value="";
+  aiOutput.scrollTop=aiOutput.scrollHeight;
+});
