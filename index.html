@@ -1,59 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Senna Script</title>
+<title>Senna Script Pro + Terminal</title>
 
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<img class="pp"
-src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
-
-<h1>Senna Script</h1>
-
+<img class="pp" src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
+<h1>Senna Script Pro</h1>
 <p class="desc">
 Senna Script adalah website yang menyediakan berbagai script bot gratis untuk belajar maupun dikembangkan kembali.
 </p>
 
 <div class="social">
-
-<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-
-<a href="https://www.youtube.com/@sennavx7" target="_blank">
-<i class="fa-brands fa-youtube"></i>
-</a>
-
-<a href="https://t.me/senlith" target="_blank">
-<i class="fa-brands fa-telegram"></i>
-</a>
-
-<a href="https://qu.ax/Q6fpS" target="_blank">
-<i class="fa-solid fa-hand-holding-dollar"></i>
-</a>
-
+<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://www.youtube.com/@sennavx7" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+<a href="https://t.me/senlith" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+<a href="https://qu.ax/Q6fpS" target="_blank"><i class="fa-solid fa-hand-holding-dollar"></i></a>
 </div>
 
+<!-- SEARCH -->
+<div class="search-wrapper">
 <input id="search" placeholder="Search Script...">
+<div id="searchLoading"></div>
+</div>
 
+<!-- CATEGORY FILTER -->
+<select id="categoryFilter">
+<option value="">All Categories</option>
+</select>
+
+<!-- SCRIPT LIST -->
 <div id="script-container"></div>
+
+<!-- TERMINAL -->
+<h2>Terminal AI Gemini</h2>
+<div id="terminal">
+<div id="terminal-output"></div>
+<input type="text" id="terminal-input" placeholder="Type your command..." />
+</div>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
