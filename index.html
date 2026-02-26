@@ -3,39 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senna Script PRO - Pinterest Style</title>
+<title>Senna Script PRO</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">Senna Ayase</div>
+  
+  <div class="social">
+    <a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank">WA</a>
+    <a href="https://www.youtube.com/@sennavx7" target="_blank">YT</a>
+    <a href="https://t.me/senlith" target="_blank">Tele</a>
+    <a href="https://qu.ax/Q6fpS" target="_blank">Donasi</a>
+  </div>
 
+  <!-- Terminal AI di navbar -->
+  <div class="ai-terminal">
+    <input id="aiInput" placeholder="Ask AI..."/>
+    <button id="aiSend">Send</button>
+    <div id="aiOutput"></div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="container">
 <img class="pp" src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
 <h1 class="title">Senna Script PRO</h1>
 <p class="desc">
 Senna Script adalah website yang menyediakan berbagai script bot gratis untuk belajar maupun dikembangkan kembali.
 </p>
 
-<div class="social">
-<a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-<a href="https://www.youtube.com/@sennavx7" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-<a href="https://t.me/senlith" target="_blank"><i class="fa-brands fa-telegram"></i></a>
-<a href="https://qu.ax/Q6fpS" target="_blank"><i class="fa-solid fa-hand-holding-dollar"></i></a>
-</div>
-
-<!-- Search -->
+<!-- SEARCH -->
 <div class="search-wrapper">
 <input id="search" placeholder="Search Script...">
 <div id="searchLoading"></div>
 </div>
 
-<!-- Category Filter -->
+<!-- CATEGORY FILTER -->
 <select id="categoryFilter">
 <option value="">All Categories</option>
 </select>
 
-<!-- Script List -->
+<!-- SCRIPT LIST -->
 <div id="script-container" class="grid"></div>
 
 </div>
