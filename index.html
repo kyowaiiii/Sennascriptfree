@@ -3,55 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senna Script PRO</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Senna Script</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<style>
+body, html { margin:0; padding:0; font-family:'Roboto',sans-serif; height:100%; overflow-x:hidden; }
+#bgVideo { position: fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
+.overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:0; }
+header { position:relative; z-index:1; text-align:center; padding:30px; font-size:3em; font-weight:700; color:#fff; text-shadow:2px 2px 15px rgba(0,0,0,0.7); }
+header::after { content:""; display:block; height:2px; width:120px; margin:15px auto; background:linear-gradient(90deg,#6a0dad,#1e90ff); }
+.container { position:relative; z-index:1; max-width:1200px; margin:40px auto; padding:0 20px; }
+#search { width:100%; padding:15px 20px; border-radius:25px; border:none; background: rgba(30,30,30,0.7); color:#fff; font-size:16px; margin-bottom:30px; backdrop-filter: blur(10px); }
+.grid { display:flex; flex-direction:column; gap:25px; }
+
+/* Card responsive */
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    padding: 15px;
+    gap: 15px;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+.card:hover { transform: translateY(-10px) scale(1.03); box-shadow:0 20px 40px rgba(138,43,226,0.6); }
+
+/* Gambar */
+.card-left img {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(138,43,226,0.5);
+}
+
+/* Nama + NEW tag */
+.card-middle { flex:1; }
+.card-middle h3 { 
+    display:flex;
+    align-items:center;
+    flex-wrap:nowrap;
+    gap:6px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin:0;
+    font-size:1.2em;
+    font-weight:700;
+    color:#fff;
+    text-shadow:1px 1px 5px rgba(0,0,0,0.5);
+}
+.card-middle .bio { font-size:0.8em; color:#ccc; text-shadow:1px 1px 3px rgba(0,0,0,0.5); }
+
+/* Tombol rapi */
+.card-right {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:8px;
+}
+
+/* Tombol & NEW tag */
+.btn { padding:12px 25px; border-radius:20px; border:none; font-weight:700; cursor:pointer; text-decoration:none; color:#fff; background: linear-gradient(45deg,#6a0dad,#1e90ff); transition: all 0.3s; }
+.btn:hover { background: linear-gradient(45deg,#1e90ff,#6a0dad); box-shadow:0 8px 25px rgba(138,43,226,0.7);}
+.new-tag { display:inline-block; background:#ff4081; color:#fff; font-size:0.75em; font-weight:700; padding:4px 10px; border-radius:12px; text-transform:uppercase; vertical-align:middle; box-shadow:0 0 8px rgba(255,64,129,0.8); }
+
+/* Modal */
+.modal { display:none; position:fixed; z-index:2; left:0;top:0;width:100%;height:100%; background:rgba(0,0,0,0.95); overflow:auto; }
+.modal-content { background:#1e1e1e; margin:5% auto; padding:30px; border-radius:25px; max-width:800px; position:relative; animation:fadeIn 0.4s; }
+@keyframes fadeIn { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+.close { position:absolute; top:15px; right:25px; font-size:32px; font-weight:bold; color:#fff; cursor:pointer; }
+.code-box { max-height:450px; overflow:auto; border-radius:15px; padding:20px; background:#111; font-family:monospace; font-size:14px; color:#0f0;}
+</style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">Senna Ayase</div>
-  
-  <div class="social">
-    <a href="https://whatsapp.com/channel/0029Vb1yiAU30LKNWGbJXl2r" target="_blank">WA</a>
-    <a href="https://www.youtube.com/@sennavx7" target="_blank">YT</a>
-    <a href="https://t.me/senlith" target="_blank">Tele</a>
-    <a href="https://qu.ax/Q6fpS" target="_blank">Donasi</a>
-  </div>
+<video id="bgVideo" autoplay loop muted playsinline>
+    <source src="https://files.catbox.moe/g2yav6.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
 
-  <!-- Terminal AI di navbar -->
-  <div class="ai-terminal">
-    <input id="aiInput" placeholder="Ask AI..."/>
-    <button id="aiSend">Send</button>
-    <div id="aiOutput"></div>
-  </div>
-</nav>
+<header>Senna Script</header>
 
-<!-- HEADER -->
 <div class="container">
-<img class="pp" src="https://img2.pixhost.to/images/5948/698171303_alip-1771769334871.jpg">
-<h1 class="title">Senna Script PRO</h1>
-<p class="desc">
-Senna Script adalah website yang menyediakan berbagai script bot gratis untuk belajar maupun dikembangkan kembali.
-</p>
-
-<!-- SEARCH -->
-<div class="search-wrapper">
-<input id="search" placeholder="Search Script...">
-<div id="searchLoading"></div>
+    <input type="text" id="search" placeholder="Cari script...">
+    <div class="grid" id="list"></div>
 </div>
 
-<!-- CATEGORY FILTER -->
-<select id="categoryFilter">
-<option value="">All Categories</option>
-</select>
-
-<!-- SCRIPT LIST -->
-<div id="script-container" class="grid"></div>
-
+<div id="previewModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modalName"></h3>
+        <div id="modalCode" class="code-box"><code>// Loading preview...</code></div>
+        <a id="modalDownload" class="btn" download>Download</a>
+    </div>
 </div>
 
-<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script>
+const dbURL = "https://raw.githubusercontent.com/kyowaiiii/database.json/refs/heads/main/database.json";
+let scripts=[];
+
+function isNewScript(updatedAt){
+    const today = new Date();
+    const updatedDate = new Date(updatedAt);
+    const diffTime = today - updatedDate;
+    const diffDays = diffTime / (1000*60*60*24);
+    return diffDays <= 7;
+}
+
+fetch(dbURL)
+.then(res=>res.json())
+.then(data=>{
+    scripts = data.map(s=>{
+        if(!s.image) s.image="https://i.ibb.co/Sw1PnqT/placeholder.png";
+        if(!s.bio) s.bio="No description available";
+        s.isNew = s.updatedAt ? isNewScript(s.updatedAt) : false;
+        if(s.previewVideo && s.previewVideo.includes("youtu.be")){
+            const id = s.previewVideo.split("/").pop().split("?")[0];
+            s.previewVideo = `https://youtu.be/${id}`;
+        }
+        return s;
+    });
+    renderScripts(scripts);
+})
+.catch(err=>console.log("Error fetch database:",err));
+
+function renderScripts(data){
+    const container=document.getElementById("list");
+    container.innerHTML="";
+    const sorted = data.sort((a,b)=>(b.isNew?1:0)-(a.isNew?1:0));
+    sorted.forEach((item,index)=>{
+        const card=document.createElement("div");
+        card.className="card";
+        card.innerHTML=`
+            <div class="card-left"><img src="${item.image}" alt="PP"></div>
+            <div class="card-middle">
+                <h3>${item.name} ${item.isNew ? '<span class="new-tag">NEW</span>' : ''}</h3>
+                <p class="bio">${item.bio}</p>
+            </div>
+            <div class="card-right">
+                <button class="btn previewBtn" data-index="${index}">Preview</button>
+                <a href="${item.download}" class="btn" download>Download</a>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".previewBtn").forEach(btn=>{
+        btn.addEventListener("click", e=>{
+            const idx = e.target.getAttribute("data-index");
+            const script = sorted[idx];
+            if(script.previewVideo){
+                window.open(script.previewVideo, "_blank");
+            } else {
+                openPreview(script);
+            }
+        });
+    });
+}
+
+document.getElementById("search").addEventListener("input",function(){
+    const query=this.value.toLowerCase();
+    const filtered=scripts.filter(s=>s.name.toLowerCase().includes(query)||s.bio.toLowerCase().includes(query));
+    renderScripts(filtered);
+});
+
+const modal=document.getElementById("previewModal");
+const spanClose=document.querySelector(".close");
+
+function openPreview(script){
+    document.getElementById("modalName").innerText = script.name;
+    const modalContent = document.getElementById("modalCode");
+    modalContent.innerHTML = "";
+    const codeEl = document.createElement("code");
+    codeEl.innerText = "// Loading script...\nFetching...";
+    modalContent.appendChild(codeEl);
+    fetch(script.download)
+    .then(res=>res.text())
+    .then(code=>{
+        codeEl.innerText = code;
+        hljs.highlightElement(codeEl);
+    })
+    .catch(err=>codeEl.innerText="// Gagal load script");
+    document.getElementById("modalDownload").href = script.download;
+    modal.style.display = "block";
+}
+
+spanClose.onclick=()=>modal.style.display="none";
+window.onclick=e=>{ if(e.target==modal) modal.style.display="none"; }
+</script>
+
 </body>
 </html>
