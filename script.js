@@ -10,8 +10,18 @@ async function loadScripts(){
         const data = await res.json();
         scripts = data;
 
-        // SORT NEW di atas (asumsi database urut terbaru)
-        scripts = scripts.sort((a,b)=> new Date(b.date || 0) - new Date(a.date || 0));
+        // SORT NEW berdasarkan tanggal 7 hari terakhir
+        const today = new Date();
+        scripts.forEach(sc=>{
+            sc.isNew = false;
+            if(sc.date){
+                const scDate = new Date(sc.date);
+                const diffDays = (today - scDate)/(1000*60*60*24);
+                if(diffDays <= 7) sc.isNew = true;
+            }
+        });
+        // Taruh NEW paling atas
+        scripts.sort((a,b)=>b.isNew - a.isNew);
 
         renderScripts(scripts);
         populateCategory();
@@ -20,15 +30,15 @@ async function loadScripts(){
     }
 }
 
-// RENDER SCRIPT CARDS
+// RENDER SCRIPT
 function renderScripts(data){
     const container = document.getElementById("script-container");
     container.innerHTML="";
-    data.forEach((sc,i)=>{
+    data.forEach(sc=>{
         const card = document.createElement("div");
         card.className="card";
         card.innerHTML=`
-            ${i===0?'<span class="tag-new">NEW</span>':''}
+            ${sc.isNew?'<span class="tag-new">NEW</span>':''}
             <img src="${sc.image}">
             <div class="script-info">
                 <div class="script-name">${sc.name}</div>
@@ -38,10 +48,11 @@ function renderScripts(data){
             </div>
         `;
         container.appendChild(card);
+        setTimeout(()=>card.classList.add("show"),50); // fade in animation
     });
 }
 
-// SEARCH SCRIPT + LOADING ANIMATION
+// SEARCH
 const searchInput = document.getElementById("search");
 const searchLoading = document.getElementById("searchLoading");
 searchInput.addEventListener("input", function(){
@@ -54,7 +65,7 @@ searchInput.addEventListener("input", function(){
     },300);
 });
 
-// POPULATE CATEGORY FILTER
+// CATEGORY FILTER
 function populateCategory(){
     const filter = document.getElementById("categoryFilter");
     const categories = [...new Set(scripts.map(sc=>sc.category))];
@@ -71,7 +82,7 @@ document.getElementById("categoryFilter").addEventListener("change", function(){
     renderScripts(filtered);
 });
 
-// TERMINAL AI
+// TERMINAL AI FIXED
 const terminalOutput = document.getElementById("terminal-output");
 const terminalInput = document.getElementById("terminal-input");
 
@@ -92,16 +103,14 @@ function appendTerminal(text){
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
+// PROXY FETCH ke serverless untuk Gemini (Vercel)
 async function queryAI(prompt){
     appendTerminal("AI: ...");
     try{
-        const res = await fetch("https://api.gemini.com/v1/ask", {
+        const res = await fetch("/api/gemini",{
             method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer "+GEMINI_API_KEY
-            },
-            body: JSON.stringify({prompt: prompt})
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({prompt})
         });
         const data = await res.json();
         terminalOutput.lastChild.textContent = "AI: ";
@@ -112,6 +121,7 @@ async function queryAI(prompt){
     }
 }
 
+// Typing animation
 function typeText(text){
     return new Promise(resolve=>{
         const p = terminalOutput.lastChild;
@@ -119,10 +129,7 @@ function typeText(text){
         const interval = setInterval(()=>{
             p.textContent += text[i];
             i++;
-            if(i>=text.length){
-                clearInterval(interval);
-                resolve();
-            }
+            if(i>=text.length){clearInterval(interval);resolve();}
         },20);
     });
 }
