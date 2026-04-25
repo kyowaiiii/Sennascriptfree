@@ -3,197 +3,444 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senna Script</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<title>Senna Shop</title>
+
 <style>
-body, html { margin:0; padding:0; font-family:'Roboto',sans-serif; height:100%; overflow-x:hidden; }
-#bgVideo { position: fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
-.overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:0; }
-header { position:relative; z-index:1; text-align:center; padding:30px; font-size:3em; font-weight:700; color:#fff; text-shadow:2px 2px 15px rgba(0,0,0,0.7); }
-header::after { content:""; display:block; height:2px; width:120px; margin:15px auto; background:linear-gradient(90deg,#6a0dad,#1e90ff); }
-.container { position:relative; z-index:1; max-width:1200px; margin:40px auto; padding:0 20px; }
-#search { width:100%; padding:15px 20px; border-radius:25px; border:none; background: rgba(30,30,30,0.7); color:#fff; font-size:16px; margin-bottom:30px; backdrop-filter: blur(10px); }
-.grid { display:flex; flex-direction:column; gap:25px; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0a0f1c;color:#fff}
+.container{max-width:500px;margin:auto}
 
-/* Card responsive */
-.card {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border-radius: 25px;
-    padding: 15px;
-    gap: 15px;
-    transition: transform 0.4s, box-shadow 0.4s;
+/* POPUP */
+.popup{
+ position:fixed;inset:0;background:rgba(0,0,0,0.7);
+ display:flex;justify-content:center;align-items:center;z-index:999
 }
-.card:hover { transform: translateY(-10px) scale(1.03); box-shadow:0 20px 40px rgba(138,43,226,0.6); }
-
-/* Gambar */
-.card-left img {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    object-fit: cover;
-    box-shadow: 0 5px 15px rgba(138,43,226,0.5);
+.popup-box{
+ background:#111827;padding:15px;border-radius:12px;
+ width:90%;max-width:350px;text-align:center;
+ animation:popupIn .3s ease
 }
-
-/* Nama + NEW tag */
-.card-middle { flex:1; }
-.card-middle h3 { 
-    display:flex;
-    align-items:center;
-    flex-wrap:nowrap;
-    gap:6px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    margin:0;
-    font-size:1.2em;
-    font-weight:700;
-    color:#fff;
-    text-shadow:1px 1px 5px rgba(0,0,0,0.5);
+.popup img{
+ width:70%;
+ aspect-ratio:3/4;
+ object-fit:cover;
+ border-radius:12px;
+ margin:auto;
+ display:block;
+ box-shadow:0 10px 25px rgba(0,0,0,0.5),
+            0 0 15px rgba(59,130,246,0.4);
 }
-.card-middle .bio { font-size:0.8em; color:#ccc; text-shadow:1px 1px 3px rgba(0,0,0,0.5); }
-
-/* Tombol rapi */
-.card-right {
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap:8px;
+.popup-btn{
+ display:block;margin-top:8px;padding:8px;
+ border-radius:8px;text-decoration:none;
+ background:#1f2937;color:#aaa;
+ border:1px solid transparent;transition:.25s
+}
+.popup-btn:active{
+ color:#3b82f6;border-color:#3b82f6;
+ box-shadow:0 0 10px rgba(59,130,246,0.4)
+}
+@keyframes popupIn{
+ from{transform:scale(.9);opacity:0}
+ to{transform:scale(1);opacity:1}
+}
+.close{
+ position:absolute;top:15px;right:15px;background:#222;
+ width:30px;height:30px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center
 }
 
-/* Tombol & NEW tag */
-.btn { padding:12px 25px; border-radius:20px; border:none; font-weight:700; cursor:pointer; text-decoration:none; color:#fff; background: linear-gradient(45deg,#6a0dad,#1e90ff); transition: all 0.3s; }
-.btn:hover { background: linear-gradient(45deg,#1e90ff,#6a0dad); box-shadow:0 8px 25px rgba(138,43,226,0.7);}
-.new-tag { display:inline-block; background:#ff4081; color:#fff; font-size:0.75em; font-weight:700; padding:4px 10px; border-radius:12px; text-transform:uppercase; vertical-align:middle; box-shadow:0 0 8px rgba(255,64,129,0.8); }
+/* HEADER */
+.header{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:12px;background:#111827
+}
+.profile{display:flex;gap:10px;align-items:center}
+.profile img{width:35px;height:35px;border-radius:50%}
+.cs{
+ border:1px solid orange;color:orange;
+ padding:6px 10px;border-radius:6px;font-size:12px;
+ text-decoration:none
+}
 
-/* Modal */
-.modal { display:none; position:fixed; z-index:2; left:0;top:0;width:100%;height:100%; background:rgba(0,0,0,0.95); overflow:auto; }
-.modal-content { background:#1e1e1e; margin:5% auto; padding:30px; border-radius:25px; max-width:800px; position:relative; animation:fadeIn 0.4s; }
-@keyframes fadeIn { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.close { position:absolute; top:15px; right:25px; font-size:32px; font-weight:bold; color:#fff; cursor:pointer; }
-.code-box { max-height:450px; overflow:auto; border-radius:15px; padding:20px; background:#111; font-family:monospace; font-size:14px; color:#0f0;}
+/* SLIDER */
+.hero{
+ overflow:hidden;border-radius:14px;margin:10px;
+ border:1px solid rgba(255,255,255,0.05);
+ position:relative
+}
+.slides{display:flex;width:100%;transition:0.5s cubic-bezier(.22,1,.36,1)}
+.slide{flex:0 0 100%;position:relative}
+.slide img{width:100%;height:180px;object-fit:cover}
+.slide::after{
+ content:'';position:absolute;inset:0;
+ background:linear-gradient(to top,rgba(0,0,0,0.6),transparent)
+}
+.slide-text{
+ position:absolute;bottom:10px;left:10px;z-index:2;font-weight:600
+}
+.slide-btn{
+ margin-top:5px;background:#333;color:#ccc;
+ padding:6px 10px;border-radius:6px
+}
+.slide-btn:active{background:#3b82f6;color:#fff}
+
+/* DOT */
+.dots{
+ position:absolute;bottom:8px;width:100%;text-align:center
+}
+.dots span{
+ width:6px;height:6px;margin:3px;
+ background:#777;border-radius:50%;display:inline-block
+}
+.dots .active{width:14px;background:#3b82f6}
+
+/* FILTER */
+.filter{display:flex;gap:8px;padding:10px;overflow:auto}
+.filter button{
+ background:#1f2937;color:#888;border:none;
+ padding:6px 10px;border-radius:8px;font-size:12px
+}
+.filter button.active{background:#3b82f6;color:#fff}
+
+/* SEARCH */
+.search{
+ padding:0 10px;max-height:0;opacity:0;
+ transform:translateY(-10px);transition:.3s
+}
+.search.active{
+ max-height:60px;opacity:1;
+ transform:translateY(0);margin-bottom:5px
+}
+.search input{
+ width:100%;padding:8px;border-radius:8px;
+ border:none;background:#1f2937;color:#fff
+}
+
+/* GRID */
+.grid{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:10px;padding:10px
+}
+.card{
+ background:#111827;border-radius:14px;
+ overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.35);
+ animation:fadeUp .4s
+}
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1}
+}
+.card img{width:100%;height:110px;object-fit:cover}
+.card-body{padding:8px}
+.title{font-size:13px}
+.rating{font-size:11px;color:#facc15}
+.price{font-size:12px;color:#60a5fa}
+
+/* BUTTON */
+.btn{
+ margin-top:6px;background:#1f2937;
+ color:#aaa;padding:8px;border-radius:10px;
+ text-align:center;text-decoration:none;display:block;
+ border:1px solid transparent;transition:.25s
+}
+.btn:active{transform:scale(.96)}
+.btn-bot:active{color:#3b82f6;border-color:#3b82f6;box-shadow:0 0 10px rgba(59,130,246,.4)}
+.btn-panel:active{color:#a855f7;border-color:#a855f7;box-shadow:0 0 10px rgba(168,85,247,.4)}
+.btn-sc:active{color:#22c55e;border-color:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.4)}
+.btn-murid:active{color:#f97316;border-color:#f97316;box-shadow:0 0 10px rgba(249,115,22,.4)}
+
+/* DESKTOP */
+@media(min-width:768px){
+ .container{max-width:900px}
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .slide img{height:260px}
+}
 </style>
 </head>
+
 <body>
 
-<video id="bgVideo" autoplay loop muted playsinline>
-    <source src="https://files.catbox.moe/g2yav6.mp4" type="video/mp4">
-</video>
-<div class="overlay"></div>
+<!-- POPUP -->
+<div class="popup" id="popup">
+ <div class="popup-box">
 
-<header>Senna Script</header>
+  <img src="https://files.catbox.moe/q1t13a.jpg">
+
+  <p style="font-size:14px;margin-top:12px;font-weight:600">
+   Selamat datang di Senna Shop 🚀
+  </p>
+
+  <p style="font-size:12px;color:#ccc;margin-top:6px;line-height:1.5">
+   Tempat terbaik untuk kebutuhan bot WhatsApp kamu.
+   Tersedia script premium, panel murah, dan layanan siap pakai dengan kualitas terbaik.
+  </p>
+
+  <a href="https://t.me/Senlith" target="_blank" class="popup-btn">👤 Owner Telegram</a>
+  <a href="https://t.me/aetherupdate" target="_blank" class="popup-btn">📢 Channel Resmi</a>
+  <a href="https://chat.whatsapp.com/GI8RnE6yXWhGDHW1G82aEr?mode=gi_t" target="_blank" class="popup-btn">👥 Grup Diskusi</a>
+
+  <p style="font-size:11px;color:#888;margin-top:10px">
+   💬 Fast respon • 🔒 Aman • ⚡ Support aktif
+  </p>
+
+ </div>
+
+ <div class="close" onclick="closePopup()">X</div>
+</div>
 
 <div class="container">
-    <input type="text" id="search" placeholder="Cari script...">
-    <div class="grid" id="list"></div>
+
+<!-- HEADER -->
+<div class="header">
+ <div class="profile">
+  <img src="https://files.catbox.moe/g1346w.jpg">
+  <div>
+   <b>Senna Shop</b><br>
+   <small style="font-size:11px">Panel Bot WA</small>
+  </div>
+ </div>
+ <a href="https://t.me/Senlith" class="cs">CS</a>
 </div>
 
-<div id="previewModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3 id="modalName"></h3>
-        <div id="modalCode" class="code-box"><code>// Loading preview...</code></div>
-        <a id="modalDownload" class="btn" download>Download</a>
-    </div>
+<!-- SLIDER -->
+<div class="hero">
+ <div class="slides" id="slides">
+
+  <div class="slide">
+   <img src="https://files.catbox.moe/rfzoyw.jpeg">
+   <div class="slide-text">
+    Script Bot
+    <div class="slide-btn" onclick="goKategori('bot')">Lihat</div>
+   </div>
+  </div>
+
+  <div class="slide">
+   <img src="https://img2.pixhost.to/images/7430/718390260_jpg">
+   <div class="slide-text">
+    Panel Murah
+    <div class="slide-btn" onclick="goKategori('panel')">lihat</div>
+   </div>
+  </div>
+
+  <div class="slide">
+   <img src="https://img2.pixhost.to/images/7430/718390625_jpg">
+   <div class="slide-text">
+    Source Code
+    <div class="slide-btn" onclick="goKategori('sc')">Lihat</div>
+   </div>
+  </div>
+
+ </div>
+
+ <div class="dots" id="dots"></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<!-- FILTER -->
+<div class="filter">
+ <button class="active" onclick="setFilter(this,'all')">𝗦𝗘𝗠𝗨𝗔</button>
+ <button onclick="setFilter(this,'bot')">𝗦𝗖𝗥𝗜𝗣𝗧𝗕𝗢𝗧</button>
+ <button onclick="setFilter(this,'panel')">𝗣𝗔𝗡𝗘𝗟</button>
+ <button onclick="setFilter(this,'sc')">𝗦𝗢𝗨𝗥𝗖𝗘𝗖𝗢𝗗𝗘</button>
+ <button onclick="setFilter(this,'murid')">𝗦𝗧𝗨𝗗𝗘𝗡𝗧</button>
+</div>
+
+<!-- SEARCH -->
+<div class="search" id="searchBox">
+ <input type="text" id="search" onkeyup="search()" placeholder="Masukan Text">
+</div>
+
+<!-- PRODUK -->
+<div class="grid" id="list">
+
+<div class="card" data-kategori="bot">
+ <img src="https://files.catbox.moe/x8n1xr.jpg">
+ <div class="card-body">
+  <div class="title">Aishiteru. MD</div>
+  <div class="rating">⭐ 4.9</div>
+  <div class="price">Rp15.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-bot">Beli</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="bot">
+ <img src="https://files.catbox.moe/l89oj6.jpg">
+ <div class="card-body">
+  <div class="title">Script Auto Order</div>
+  <div class="rating">⭐ 3.9</div>
+  <div class="price">Rp15.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-bot">Beli</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="panel">
+ <img src="https://img2.pixhost.to/images/7430/718390260_jpg">
+ <div class="card-body">
+  <div class="title">Panel Bot 7GB</div>
+  <div class="rating">⭐ 2.0</div>
+  <div class="price">Rp5.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-panel">Order</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="panel">
+ <img src="https://img2.pixhost.to/images/7430/718390260_jpg">
+ <div class="card-body">
+  <div class="title">Panel Bot 9GB</div>
+  <div class="rating">⭐ 3.0</div>
+  <div class="price">Rp7.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-panel">Order</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="panel">
+ <img src="https://img2.pixhost.to/images/7430/718390260_jpg">
+ <div class="card-body">
+  <div class="title">Panel Bot 10Gb</div>
+  <div class="rating">⭐ 4.0</div>
+  <div class="price">Rp8.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-panel">Order</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="panel">
+ <img src="https://img2.pixhost.to/images/7430/718390260_jpg">
+ <div class="card-body">
+  <div class="title">Panel Bot Unlimited</div>
+  <div class="rating">⭐ 5.0</div>
+  <div class="price">Rp10.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-panel">Order</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="sc">
+ <img src="https://files.catbox.moe/9i1k7k.jpg">
+ <div class="card-body">
+  <div class="title">Maomao Ai</div>
+  <div class="Versi">1.0</div>
+  <div class="Status">Free</div>
+  <a href="https://sub4unlock.co/wB5X" class="btn btn-sc">Download</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="sc">
+ <img src="https://files.catbox.moe/lfdevu.jpeg">
+ <div class="card-body">
+  <div class="title">Aishiteru Promax</div>
+  <div class="Versi">5.0</div>
+  <div class="Status">Free</div>
+  <a href="https://sub4unlock.co/FFTPl5" class="btn btn-sc">Download</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="sc">
+ <img src="https://files.catbox.moe/jvci1w.jpg">
+ <div class="card-body">
+  <div class="title">Zero Two</div>
+  <div class="Versi">1.0</div>
+  <div class="Status">Free</div>
+  <a href="https://sub4unlock.co/KCzAHF" class="btn btn-sc">Download</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="murid">
+ <img src="https://files.catbox.moe/es5z03.jpg">
+ <div class="card-body">
+  <div class="title">Murid Script Via Web</div>
+  <div class="rating">⭐ 4.0</div>
+  <div class="price">Rp25.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-murid">Gabung</a>
+ </div>
+</div>
+
+<div class="card" data-kategori="murid">
+ <img src="https://h.uguu.se/FtYFZksa.jpeg">
+ <div class="card-body">
+  <div class="title">Reseller Am Prem</div>
+  <div class="rating">⭐ 4.2</div>
+  <div class="price">Rp15.000</div>
+  <a href="https://t.me/Senlith" class="btn btn-murid">Gabung</a>
+ </div>
+</div>
+
+</div>
+</div>
+
 <script>
-const dbURL = "https://raw.githubusercontent.com/kyowaiiii/database.json/refs/heads/main/database.json";
-let scripts=[];
-
-function isNewScript(updatedAt){
-    const today = new Date();
-    const updatedDate = new Date(updatedAt);
-    const diffTime = today - updatedDate;
-    const diffDays = diffTime / (1000*60*60*24);
-    return diffDays <= 7;
+// POPUP 1x
+function closePopup(){
+ document.getElementById('popup').style.display='none';
+ localStorage.setItem('popupSeen','yes');
+}
+window.onload=function(){
+ if(localStorage.getItem('popupSeen')){
+  document.getElementById('popup').style.display='none';
+ }
 }
 
-fetch(dbURL)
-.then(res=>res.json())
-.then(data=>{
-    scripts = data.map(s=>{
-        if(!s.image) s.image="https://i.ibb.co/Sw1PnqT/placeholder.png";
-        if(!s.bio) s.bio="No description available";
-        s.isNew = s.updatedAt ? isNewScript(s.updatedAt) : false;
-        if(s.previewVideo && s.previewVideo.includes("youtu.be")){
-            const id = s.previewVideo.split("/").pop().split("?")[0];
-            s.previewVideo = `https://youtu.be/${id}`;
-        }
-        return s;
-    });
-    renderScripts(scripts);
-})
-.catch(err=>console.log("Error fetch database:",err));
+// slider
+let slides=document.getElementById('slides');
+let index=0,startX=0;
+let total=document.querySelectorAll('.slide').length;
 
-function renderScripts(data){
-    const container=document.getElementById("list");
-    container.innerHTML="";
-    const sorted = data.sort((a,b)=>(b.isNew?1:0)-(a.isNew?1:0));
-    sorted.forEach((item,index)=>{
-        const card=document.createElement("div");
-        card.className="card";
-        card.innerHTML=`
-            <div class="card-left"><img src="${item.image}" alt="PP"></div>
-            <div class="card-middle">
-                <h3>${item.name} ${item.isNew ? '<span class="new-tag">NEW</span>' : ''}</h3>
-                <p class="bio">${item.bio}</p>
-            </div>
-            <div class="card-right">
-                <button class="btn previewBtn" data-index="${index}">Preview</button>
-                <a href="${item.download}" class="btn" download>Download</a>
-            </div>
-        `;
-        container.appendChild(card);
-    });
+// dot
+let dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){
+ let d=document.createElement('span');
+ if(i==0)d.classList.add('active');
+ dotsBox.appendChild(d);
+}
+let dots=document.querySelectorAll('.dots span');
 
-    document.querySelectorAll(".previewBtn").forEach(btn=>{
-        btn.addEventListener("click", e=>{
-            const idx = e.target.getAttribute("data-index");
-            const script = sorted[idx];
-            if(script.previewVideo){
-                window.open(script.previewVideo, "_blank");
-            } else {
-                openPreview(script);
-            }
-        });
-    });
+function update(){
+ slides.style.transform=`translateX(-${index*100}%)`;
+ dots.forEach(d=>d.classList.remove('active'));
+ dots[index].classList.add('active');
 }
 
-document.getElementById("search").addEventListener("input",function(){
-    const query=this.value.toLowerCase();
-    const filtered=scripts.filter(s=>s.name.toLowerCase().includes(query)||s.bio.toLowerCase().includes(query));
-    renderScripts(filtered);
+setInterval(()=>{
+ index=(index+1)%total;
+ update();
+},4000);
+
+slides.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+slides.addEventListener('touchend',e=>{
+ let diff=startX-e.changedTouches[0].clientX;
+ if(diff>50) index++;
+ if(diff<-50) index--;
+ if(index<0) index=0;
+ if(index>=total) index=total-1;
+ update();
 });
 
-const modal=document.getElementById("previewModal");
-const spanClose=document.querySelector(".close");
-
-function openPreview(script){
-    document.getElementById("modalName").innerText = script.name;
-    const modalContent = document.getElementById("modalCode");
-    modalContent.innerHTML = "";
-    const codeEl = document.createElement("code");
-    codeEl.innerText = "// Loading script...\nFetching...";
-    modalContent.appendChild(codeEl);
-    fetch(script.download)
-    .then(res=>res.text())
-    .then(code=>{
-        codeEl.innerText = code;
-        hljs.highlightElement(codeEl);
-    })
-    .catch(err=>codeEl.innerText="// Gagal load script");
-    document.getElementById("modalDownload").href = script.download;
-    modal.style.display = "block";
+function goKategori(cat){
+ let btn=document.querySelector(`.filter button[onclick*="${cat}"]`);
+ if(btn){btn.click();window.scrollTo({top:300,behavior:'smooth'});}
 }
 
-spanClose.onclick=()=>modal.style.display="none";
-window.onclick=e=>{ if(e.target==modal) modal.style.display="none"; }
+// filter
+let current='all';
+function setFilter(el,cat){
+ current=cat;
+ document.querySelectorAll('.filter button').forEach(b=>b.classList.remove('active'));
+ el.classList.add('active');
+
+ let s=document.getElementById('searchBox');
+ if(cat==='all'){s.classList.remove('active')}else{s.classList.add('active')}
+
+ updateList();
+}
+
+function search(){updateList();}
+
+function updateList(){
+ let val=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('.card').forEach(c=>{
+  let ok1=(current==='all'||c.dataset.kategori===current);
+  let ok2=c.innerText.toLowerCase().includes(val);
+  c.style.display=(ok1&&ok2)?'block':'none';
+ });
+}
 </script>
 
 </body>
